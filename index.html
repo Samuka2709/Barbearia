@@ -36,7 +36,8 @@ nav .right{justify-content:flex-end}
 .ghost-word{position:absolute;z-index:1;font-family:Unbounded;font-weight:800;font-size:clamp(56px,11vw,168px);line-height:.86;letter-spacing:-.03em;text-align:center;white-space:nowrap;color:rgba(243,236,224,.075);user-select:none}
 .ghost-word span{display:block}
 .hero-script{position:absolute;top:auto;bottom:13%;font-size:clamp(40px,6vw,80px);color:var(--gold);z-index:2;text-shadow:0 4px 30px rgba(0,0,0,.8)}
-.razor{position:relative;z-index:1;height:min(66vh,620px);width:auto;mix-blend-mode:screen;animation:float 7s ease-in-out infinite}
+.razor-wrap{position:relative;z-index:1;mix-blend-mode:screen;animation:float 7s ease-in-out infinite}
+.razor{display:block;height:min(66vh,620px);width:auto;will-change:transform}
 .hero-foot{position:absolute;bottom:40px;left:6vw;right:6vw;display:flex;justify-content:space-between;align-items:end;font-size:13px;color:var(--mute)}
 .hero-foot p{max-width:270px;line-height:1.6}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-16px) rotate(2deg)}}
@@ -194,7 +195,7 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
   <div class="beam"></div>
   <div class="floor"></div>
   <div class="hero-script script">desde 2016</div>
-  <img class="razor" src="img/tesoura.png" alt="Tesoura de barbeiro cromada sob um feixe de luz" width="1024" height="1536">
+  <div class="razor-wrap"><img class="razor" src="img/tesoura.png" alt="Tesoura de barbeiro cromada sob um feixe de luz" width="1024" height="1536"></div>
   <div class="hero-foot">
     <p>Corte preciso. Barba alinhada. Um clube para quem leva o próprio estilo a sério.</p>
     <a href="#servicos" class="wide" style="font-size:11px">↓ Role</a>
@@ -341,7 +342,7 @@ const razor=document.querySelector('.razor'),beam=document.querySelector('.beam'
 let ticking=false;
 function onScroll(){
   const p=Math.min(1,scrollY/hero.offsetHeight);
-  if(!calm){
+  {
     razor.style.transform=`translateY(${p*-120}px) rotate(${p*-38}deg) scale(${1-p*.25})`;
     beam.style.opacity=1-p*1.1;
   }
@@ -349,7 +350,6 @@ function onScroll(){
   ticking=false;
 }
 addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(onScroll);ticking=true}},{passive:true});
-if(!calm)razor.style.animation='none';
 onScroll();
 
 // 4 · antes e depois
