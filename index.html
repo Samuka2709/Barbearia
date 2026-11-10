@@ -126,8 +126,8 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding:26px 0;background:#0b0907}
 .paused{animation-play-state:paused!important}
 @media(min-width:821px){nav.scrolled{backdrop-filter:blur(10px)}}
-.marquee-track{display:flex;gap:48px;width:max-content;animation:slide 32s linear infinite;font-family:Unbounded;font-weight:600;font-size:clamp(20px,3vw,38px);text-transform:uppercase;white-space:nowrap}
-.marquee-track span{display:flex;align-items:center;gap:48px}
+.marquee-track{display:flex;width:max-content;animation:slide 32s linear infinite;font-family:Unbounded;font-weight:600;font-size:clamp(20px,3vw,38px);text-transform:uppercase;white-space:nowrap}
+.marquee-track span{display:flex;align-items:center;gap:48px;padding-right:48px}
 .marquee-track span:nth-child(even){color:var(--gold)}
 .marquee-track svg{width:.7em;height:.7em;fill:var(--gold);flex:none}
 .marquee.rev .marquee-track{animation-direction:reverse}
@@ -159,9 +159,9 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 
 /* 5 · faixa de fotos */
 .strip{overflow:hidden;padding:0 0 120px}
-.strip-track{display:flex;gap:14px;width:max-content;animation:slide 60s linear infinite}
+.strip-track{display:flex;width:max-content;animation:slide 60s linear infinite}
 .strip:hover .strip-track{animation-play-state:paused}
-.strip img{height:300px;width:240px;object-fit:cover;border-radius:6px;filter:sepia(.25) brightness(.85);transition:filter .5s}
+.strip img{margin-right:14px;height:300px;width:240px;object-fit:cover;border-radius:6px;filter:sepia(.25) brightness(.85);transition:filter .5s}
 .strip img:hover{filter:none}
 
 /* 6 · produtos */
@@ -373,6 +373,20 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 <footer><span>© 2026 Mestre Barber Club</span><span class="wide">Feito à navalha</span></footer>
 
 <script>
+// faixas infinitas: repete o conjunto até cobrir a tela e duplica, para o loop não deixar buraco
+function fillLoop(track,count,speed){
+  const base=[...track.children].slice(0,count).map(n=>n.cloneNode(true));
+  const build=()=>{
+    track.replaceChildren();
+    do{base.forEach(n=>track.appendChild(n.cloneNode(true)))}while(track.scrollWidth<innerWidth+200);
+    const half=track.scrollWidth;
+    [...track.children].forEach(n=>track.appendChild(n.cloneNode(true)));
+    track.style.animationDuration=(half/speed)+'s';
+  };
+  build();let w=innerWidth;addEventListener('resize',()=>{if(innerWidth!==w){w=innerWidth;build()}},{passive:true});
+}
+document.querySelectorAll('.marquee-track').forEach(t=>fillLoop(t,t.children.length/2,70));
+document.querySelectorAll('.strip-track').forEach(t=>fillLoop(t,t.children.length,45));
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
 document.querySelectorAll('img:not(.razor)').forEach(i=>{
