@@ -386,7 +386,7 @@ function fillLoop(track,count,speed){
   build();let w=innerWidth;addEventListener('resize',()=>{if(innerWidth!==w){w=innerWidth;build()}},{passive:true});
 }
 document.querySelectorAll('.marquee-track').forEach(t=>fillLoop(t,t.children.length/2,70));
-document.querySelectorAll('.strip-track').forEach(t=>fillLoop(t,t.children.length,45));
+document.querySelectorAll('.strip-track').forEach(t=>fillLoop(t,t.children.length,65));
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
 document.querySelectorAll('img:not(.razor)').forEach(i=>{
