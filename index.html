@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mestre Barber Club</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@ h2 em{font-style:normal;color:var(--gold)}
 .manifesto .sign{font-size:44px;color:var(--gold);margin-top:28px;line-height:1}
 
 .svc{display:grid;grid-template-columns:1fr auto auto;gap:30px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);transition:padding .5s cubic-bezier(.2,.7,.2,1),background .5s}
-.svc:hover{padding-left:20px;background:linear-gradient(90deg,rgba(201,164,92,.06),transparent)}
+@media(hover:hover){.svc:hover{padding-left:20px;background:linear-gradient(90deg,rgba(201,164,92,.06),transparent)}}
 .svc h3{font-family:Unbounded;font-weight:400;font-size:clamp(18px,2.4vw,28px);text-transform:uppercase}
 .svc small{display:block;color:var(--mute);font-family:Inter;font-size:14px;text-transform:none;margin-top:6px}
 .svc .t{color:var(--mute);font-size:13px}
@@ -81,7 +81,7 @@ h2 em{font-style:normal;color:var(--gold)}
 .cta h2{font-size:clamp(40px,8vw,112px);margin-bottom:44px}
 .book{max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 16px;text-align:left}
 .book label{display:flex;flex-direction:column;gap:8px;font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-family:Unbounded}
-.book input,.book select{font:400 15px Inter,sans-serif;color:var(--fg);background:#0f0c09;border:1px solid #3a2f20;border-radius:6px;padding:14px;color-scheme:dark;transition:border-color .3s}
+.book input,.book select{font:400 16px Inter,sans-serif;min-height:50px;color:var(--fg);background:#0f0c09;border:1px solid #3a2f20;border-radius:6px;padding:14px;color-scheme:dark;transition:border-color .3s}
 .book input:focus,.book select:focus{outline:none;border-color:var(--gold)}
 .book input::placeholder{color:#8a7e6e}
 .book .btn{grid-column:span 3;justify-self:center;margin-top:12px;border:0;cursor:pointer;padding:16px 34px}
@@ -187,6 +187,13 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
  .hero-script{bottom:24%}.razor{height:52vh}
  .hero-foot{flex-direction:column;align-items:start;gap:16px}
 }
+/* adapt: telas largas, tablet, paisagem, toque */
+section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
+.logo{position:relative}.logo::before{content:"";position:absolute;inset:-10px -8px}
+.fab{bottom:max(22px,env(safe-area-inset-bottom));right:max(22px,env(safe-area-inset-right))}
+@media(max-width:820px){.hero-foot p{font-size:15px}.svc small,.member p,.prod p{font-size:15px}.hero-foot{bottom:max(28px,env(safe-area-inset-bottom))}}
+@media(min-width:600px) and (max-width:820px){.team,.prods{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-height:520px) and (orientation:landscape){.hero{min-height:420px}.razor{height:58vh}.hero-script{display:none}.ba-pin{padding-top:64px}.ba-pin h2{font-size:22px;margin-bottom:10px}.ba-pin .ba{width:min(100%,calc((100vh - 96px) * 1.6));aspect-ratio:16/10}.ba-pin .note{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
