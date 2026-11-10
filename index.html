@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mestre Barber Club</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070605;--fg:#f3ece0;--mute:#9a8e7e;--line:#221d17;--gold:#c9a45c;--gold-hi:#e6c88a}
@@ -86,6 +87,7 @@ h2 em{font-style:normal;color:var(--gold)}
 .book input::placeholder{color:#8a7e6e}
 .book .btn{grid-column:span 3;justify-self:center;margin-top:12px;border:0;cursor:pointer;padding:16px 34px}
 .book-err{grid-column:span 3;text-align:center;color:#e8a07a;font-size:14px}
+.book-err.ok{color:var(--gold-hi)}
 @media(max-width:820px){.book{grid-template-columns:1fr}.book .btn,.book-err{grid-column:auto}}
 .info{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:110px;text-align:left;border-top:1px solid var(--line);padding-top:40px}
 .info h3{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;font-weight:400;font-family:Unbounded}
@@ -351,7 +353,6 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const mb=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
 mb.addEventListener('click',()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')});
 menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
-const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // 3 · tesoura reage à rolagem
 const razor=document.querySelector('.razor'),beam=document.querySelector('.beam'),hero=document.querySelector('.hero');
@@ -400,16 +401,17 @@ function slots(){
     const t=new Date(d);t.setHours(h,m);
     if(t>new Date())hora.add(new Option(`${pad(h)}:${pad(m)}`));
   }
-  if(hora.options.length===1)hora.innerHTML='',hora.add(new Option('Sem horários neste dia',''));
+  if(hora.options.length===1)hora.innerHTML='',hora.add(new Option('Sem horários: escolha outro dia',''));
 }
 dia.addEventListener('change',slots);slots();
 f.addEventListener('submit',e=>{
-  e.preventDefault();err.hidden=true;
+  e.preventDefault();err.hidden=true;err.className='book-err';
   if(!f.nome.value.trim()){err.textContent='Escreva seu nome.';err.hidden=false;f.nome.focus();return}
   if(!hora.value){err.textContent='Escolha um dia e um horário disponíveis.';err.hidden=false;return}
   const data=new Date(dia.value+'T00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'});
   const msg=`Olá! Quero agendar um horário:\n\n*Nome:* ${f.nome.value.trim()}\n*Serviço:* ${f.servico.value}\n*Barbeiro:* ${f.barbeiro.value}\n*Dia:* ${data}\n*Horário:* ${hora.value}`;
-  window.open(`https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+  const url=`https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`,w=window.open(url,'_blank');
+  if(w){w.opener=null;err.className='book-err ok';err.textContent='Abrimos o WhatsApp com sua mensagem. É só enviar.';err.hidden=false}else location.href=url;
 });
 </script>
 </body>
