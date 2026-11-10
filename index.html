@@ -189,6 +189,10 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
  .hero-script{bottom:24%}.razor{height:52vh}
  .hero-foot{flex-direction:column;align-items:start;gap:16px}
 }
+/* imagens surgem com suavidade quando terminam de carregar */
+.tile,.member .ph,.prod .pic,.ba{background:#120e0a}
+:root img.fade{opacity:0;transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1),filter .5s}
+:root img.fade.loaded{opacity:1}
 /* adapt: telas largas, tablet, paisagem, toque */
 section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 .logo{position:relative}.logo::before{content:"";position:absolute;inset:-10px -8px}
@@ -347,6 +351,12 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 <script>
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.querySelectorAll('img').forEach(i=>{
+  i.classList.add('fade');
+  const show=()=>i.classList.add('loaded');
+  if(i.complete&&i.naturalWidth)requestAnimationFrame(show);
+  else{i.addEventListener('load',show,{once:true});i.addEventListener('error',show,{once:true})}
+});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
