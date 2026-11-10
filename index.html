@@ -68,13 +68,13 @@ h2 em{font-style:normal;color:var(--gold)}
 .tile figcaption{position:relative;color:var(--fg);text-shadow:0 2px 12px #000}
 .tile:nth-child(1){grid-row:span 2;grid-column:span 2}
 .tile:nth-child(4){grid-row:span 2}
-.note{margin-top:18px;font-size:12px;color:#6d6252}
+.note{margin-top:18px;font-size:12px;color:var(--mute)}
 
 .team{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .member .ph{aspect-ratio:3/4;border-radius:6px;border:1px solid var(--line);margin-bottom:18px;overflow:hidden}
 .member .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .member:hover .ph img{transform:scale(1.04)}
-.member h4{font-family:Unbounded;font-weight:400;text-transform:uppercase;font-size:16px}
+.member h3{font-family:Unbounded;font-weight:400;text-transform:uppercase;font-size:16px}
 .member p{color:var(--mute);font-size:14px;margin-top:6px}
 
 .cta{text-align:center}
@@ -83,7 +83,7 @@ h2 em{font-style:normal;color:var(--gold)}
 .book label{display:flex;flex-direction:column;gap:8px;font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-family:Unbounded}
 .book input,.book select{font:400 15px Inter,sans-serif;color:var(--fg);background:#0f0c09;border:1px solid #3a2f20;border-radius:6px;padding:14px;color-scheme:dark;transition:border-color .3s}
 .book input:focus,.book select:focus{outline:none;border-color:var(--gold)}
-.book input::placeholder{color:#6d6252}
+.book input::placeholder{color:#8a7e6e}
 .book .btn{grid-column:span 3;justify-self:center;margin-top:12px;border:0;cursor:pointer;padding:16px 34px}
 .book-err{grid-column:span 3;text-align:center;color:#e8a07a;font-size:14px}
 @media(max-width:820px){.book{grid-template-columns:1fr}.book .btn,.book-err{grid-column:auto}}
@@ -124,7 +124,7 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .ba .tag.l{left:18px}.ba .tag.r{right:18px;color:var(--gold)}
 .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 
-#antes-depois{height:260vh;padding-top:0;padding-bottom:0}
+#antes-depois{height:170vh;padding-top:0;padding-bottom:0}
 .ba-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:70px}
 .ba-pin h2{margin-bottom:32px}
 .ba-pin .ba{width:min(1000px,100%,102vh)}
@@ -160,10 +160,13 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .fab:hover{background:var(--gold-hi);transform:scale(1.08)}
 .fab svg{width:28px;height:28px;fill:#120d06}
 
-/* 8 · cursor */
-.cursor{position:fixed;left:0;top:0;z-index:200;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:1.5px solid var(--gold);pointer-events:none;transition:width .3s,height .3s,margin .3s,background .3s,opacity .3s;opacity:0}
-.cursor.big{width:56px;height:56px;margin:-28px 0 0 -28px;background:rgba(201,164,92,.15)}
-@media(pointer:coarse){.cursor{display:none}.ba input{pointer-events:none}}
+@media(pointer:coarse){.ba input{pointer-events:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.hero-cta{padding:16px 28px;font-size:12px}
+.menu-btn{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.menu-btn span{display:block;width:22px;height:1.5px;background:var(--fg);transition:transform .3s}
+.menu-btn[aria-expanded="true"] span:first-child{transform:translateY(3.75px) rotate(45deg)}.menu-btn[aria-expanded="true"] span:last-child{transform:translateY(-3.75px) rotate(-45deg)}
+.m-only{display:none}
 
 @media(max-width:820px){
  .quotes,.prods{grid-template-columns:1fr}
@@ -171,7 +174,12 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
  .ba{aspect-ratio:4/5}
 }
 @media(max-width:820px){
- nav{grid-template-columns:auto 1fr}nav .links:first-child{display:none}nav .right a:not(.btn){display:none}
+ nav{grid-template-columns:auto 1fr}nav .right a:not(.btn){display:none}nav .right{gap:8px}
+ .menu-btn{display:flex}nav .btn{padding:15px 20px}
+ #menu{position:fixed;inset:0 0 auto;top:76px;flex-direction:column;align-items:stretch;gap:0;background:rgba(7,6,5,.97);border-bottom:1px solid var(--line);padding:8px 6vw 20px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+ #menu.open{opacity:1;transform:none;pointer-events:auto}
+ #menu a{padding:16px 0;font-size:14px;border-bottom:1px solid var(--line)}#menu .m-only{display:block}
+ .hero-cta{align-self:stretch;text-align:center}
  .manifesto,.info{grid-template-columns:1fr}
  .grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
  .team{grid-template-columns:1fr}
@@ -185,12 +193,13 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 <body>
 
 <nav id="nav">
-  <div class="links wide"><a href="#galeria">Galeria</a><a href="#servicos">Serviços</a></div>
+  <div class="links wide" id="menu"><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#contato" class="m-only">Contato</a></div>
   <a href="#" class="logo" aria-label="Mestre Barber Club, início">MES<br>TRE</a>
-  <div class="links right wide"><a href="#contato">Contato</a><a href="#agendar" class="btn">Agendar</a></div>
+  <div class="links right wide"><button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span></button><a href="#contato">Contato</a><a href="#agendar" class="btn">Agendar</a></div>
 </nav>
 
 <header class="hero">
+  <h1 class="sr">Mestre Barber Club, barbearia</h1>
   <div class="ghost-word" aria-hidden="true">MESTRE<span>BARBER</span></div>
   <div class="beam"></div>
   <div class="floor"></div>
@@ -198,9 +207,10 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
   <div class="razor-wrap"><img class="razor" src="img/tesoura.png" alt="Tesoura de barbeiro cromada sob um feixe de luz" width="1024" height="1536"></div>
   <div class="hero-foot">
     <p>Corte e barba com hora marcada, feitos por quem leva o seu estilo a sério.</p>
-    <a href="#servicos" class="wide" style="font-size:11px">↓ Role</a>
+    <a href="#agendar" class="btn hero-cta">Agendar horário</a>
   </div>
 </header>
+<main>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track">
   <span>Corte<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Barba<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Navalha<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Toalha quente<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
@@ -230,14 +240,14 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 <section id="galeria">
   <h2 class="reveal">Trabalho <em>afiado</em></h2>
   <div class="grid reveal">
-    <figure class="tile"><img src="img/fotos/1647140655214-e4a2d914971f-1100.jpg" alt="" loading="lazy"><figcaption>Degradê</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1599351431202-1e0f0137899a-700.jpg" alt="" loading="lazy"><figcaption>Barba</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1517832606299-7ae9b720a186-700.jpg" alt="" loading="lazy"><figcaption>Clássico</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1567894340315-735d7c361db0-700.jpg" alt="" loading="lazy"><figcaption>Navalhado</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1657105052497-f996284ffff8-700.jpg" alt="" loading="lazy"><figcaption>Texturizado</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1503951914875-452162b0f3f1-700.jpg" alt="" loading="lazy"><figcaption>Social</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1704072650662-76df3af134a7-700.jpg" alt="" loading="lazy"><figcaption>Kids</figcaption></figure>
-    <figure class="tile"><img src="img/fotos/1593702275687-f8b402bf1fb5-700.jpg" alt="" loading="lazy"><figcaption>Detalhe</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1647140655214-e4a2d914971f-1100.jpg" alt="Corte: Degradê" loading="lazy"><figcaption>Degradê</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1599351431202-1e0f0137899a-700.jpg" alt="Corte: Barba" loading="lazy"><figcaption>Barba</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1517832606299-7ae9b720a186-700.jpg" alt="Corte: Clássico" loading="lazy"><figcaption>Clássico</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1567894340315-735d7c361db0-700.jpg" alt="Corte: Navalhado" loading="lazy"><figcaption>Navalhado</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1657105052497-f996284ffff8-700.jpg" alt="Corte: Texturizado" loading="lazy"><figcaption>Texturizado</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1503951914875-452162b0f3f1-700.jpg" alt="Corte: Social" loading="lazy"><figcaption>Social</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1704072650662-76df3af134a7-700.jpg" alt="Corte: Kids" loading="lazy"><figcaption>Kids</figcaption></figure>
+    <figure class="tile"><img src="img/fotos/1593702275687-f8b402bf1fb5-700.jpg" alt="Corte: Detalhe" loading="lazy"><figcaption>Detalhe</figcaption></figure>
   </div>
   <p class="note">Fotos de exemplo (Unsplash). Troque pelas fotos reais da barbearia.</p>
 </section>
@@ -269,16 +279,12 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 <section>
   <h2 class="reveal">As <em>mãos</em></h2>
   <div class="team">
-    <div class="member reveal"><div class="ph"><img src="img/fotos/1553521041-d168abd31de3-600x800.jpg" alt="" loading="lazy"></div><h4>Barbeiro 1</h4><p>Fundador · Degradê e navalha</p></div>
-    <div class="member reveal"><div class="ph"><img src="img/fotos/1640301133857-c4bc5789c1bb-600x800.jpg" alt="" loading="lazy"></div><h4>Barbeiro 2</h4><p>Barba e visagismo</p></div>
-    <div class="member reveal"><div class="ph"><img src="img/fotos/1605497788044-5a32c7078486-600x800.jpg" alt="" loading="lazy"></div><h4>Barbeiro 3</h4><p>Cortes clássicos e tesoura</p></div>
+    <div class="member reveal"><div class="ph"><img src="img/fotos/1553521041-d168abd31de3-600x800.jpg" alt="Retrato do barbeiro 1" loading="lazy"></div><h3>Barbeiro 1</h3><p>Fundador · Degradê e navalha</p></div>
+    <div class="member reveal"><div class="ph"><img src="img/fotos/1640301133857-c4bc5789c1bb-600x800.jpg" alt="Retrato do barbeiro 2" loading="lazy"></div><h3>Barbeiro 2</h3><p>Barba e visagismo</p></div>
+    <div class="member reveal"><div class="ph"><img src="img/fotos/1605497788044-5a32c7078486-600x800.jpg" alt="Retrato do barbeiro 3" loading="lazy"></div><h3>Barbeiro 3</h3><p>Cortes clássicos e tesoura</p></div>
   </div>
 </section>
 
-<div class="marquee rev" aria-hidden="true"><div class="marquee-track">
-  <span>Degradê<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Pigmentação<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Visagismo<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Corte kids<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
-  <span>Degradê<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Pigmentação<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Visagismo<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Corte kids<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
-</div></div>
 
 <section>
   <h2 class="reveal">Quem <em>senta</em>, volta</h2>
@@ -324,9 +330,9 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 
 <div class="map" style="margin:0 6vw 100px;position:relative;background:var(--line)"><a class="map-link wide" href="https://maps.google.com/?q=Pra%C3%A7a%20da%20S%C3%A9%2C%20S%C3%A3o%20Paulo" target="_blank" rel="noopener">Abrir no Google Maps ↗</a><iframe style="position:relative" title="Mapa da barbearia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Pra%C3%A7a%20da%20S%C3%A9%2C%20S%C3%A3o%20Paulo&z=15&output=embed"></iframe></div>
 
-<a class="fab" id="fab" href="#agendar" aria-label="Agendar pelo WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg></a>
-<div class="cursor" id="cursor" aria-hidden="true"></div>
+<a class="fab" id="fab" href="#agendar" target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg></a>
 
+</main>
 <footer><span>© 2026 Mestre Barber Club</span><span class="wide">Feito à navalha</span></footer>
 
 <script>
@@ -335,6 +341,9 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passi
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+const mb=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
+mb.addEventListener('click',()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')});
+menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // 3 · tesoura reage à rolagem
@@ -364,24 +373,18 @@ function baScroll(){
   const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
   setX(Math.round((1-e)*1000)/10);
 }
-addEventListener('scroll',()=>requestAnimationFrame(baScroll),{passive:true});
+let baT=false;addEventListener('scroll',()=>{if(!baT){baT=true;requestAnimationFrame(()=>{baScroll();baT=false})}},{passive:true});
 baScroll();
 
-// 8 · cursor
-const cur=document.getElementById('cursor');
-if(matchMedia('(pointer:fine)').matches){
-  addEventListener('mousemove',e=>{cur.style.opacity=1;cur.style.transform=`translate(${e.clientX}px,${e.clientY}px)`});
-  document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('a,button,img,select,input,.ba')));
-  document.addEventListener('mouseleave',()=>cur.style.opacity=0);
-}
 
 // Agendamento via WhatsApp — troque pelo número real (DDI + DDD + número)
 const WHATS='5500000000000';
+document.getElementById('fab').href=`https://wa.me/${WHATS}?text=${encodeURIComponent('Olá! Quero agendar um horário.')}`;
 const f=document.getElementById('book'),dia=f.dia,hora=f.hora,err=f.querySelector('.book-err');
 const pad=n=>String(n).padStart(2,'0'),hoje=new Date();
 dia.min=`${hoje.getFullYear()}-${pad(hoje.getMonth()+1)}-${pad(hoje.getDate())}`;
 function slots(){
-  hora.innerHTML='';
+  hora.innerHTML='';hora.add(new Option('Escolha o horário',''));
   if(!dia.value){hora.add(new Option('Escolha o dia',''));return}
   const d=new Date(dia.value+'T00:00'),w=d.getDay();
   if(w===0){hora.add(new Option('Fechado aos domingos',''));return}
@@ -390,11 +393,12 @@ function slots(){
     const t=new Date(d);t.setHours(h,m);
     if(t>new Date())hora.add(new Option(`${pad(h)}:${pad(m)}`));
   }
-  if(!hora.options.length)hora.add(new Option('Sem horários neste dia',''));
+  if(hora.options.length===1)hora.innerHTML='',hora.add(new Option('Sem horários neste dia',''));
 }
 dia.addEventListener('change',slots);slots();
 f.addEventListener('submit',e=>{
   e.preventDefault();err.hidden=true;
+  if(!f.nome.value.trim()){err.textContent='Escreva seu nome.';err.hidden=false;f.nome.focus();return}
   if(!hora.value){err.textContent='Escolha um dia e um horário disponíveis.';err.hidden=false;return}
   const data=new Date(dia.value+'T00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'});
   const msg=`Olá! Quero agendar um horário:\n\n*Nome:* ${f.nome.value.trim()}\n*Serviço:* ${f.servico.value}\n*Barbeiro:* ${f.barbeiro.value}\n*Dia:* ${data}\n*Horário:* ${hora.value}`;
