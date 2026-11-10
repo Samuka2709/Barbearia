@@ -101,7 +101,7 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding:26px 0;background:#0b0907}
 .marquee-track{display:flex;gap:48px;width:max-content;animation:slide 32s linear infinite;font-family:Unbounded;font-weight:600;font-size:clamp(20px,3vw,38px);text-transform:uppercase;white-space:nowrap}
 .marquee-track span{display:flex;align-items:center;gap:48px}
-.marquee-track span:nth-child(even){color:transparent;-webkit-text-stroke:1px var(--gold)}
+.marquee-track span:nth-child(even){color:var(--gold)}
 .marquee-track svg{width:.7em;height:.7em;fill:var(--gold);flex:none}
 .marquee.rev .marquee-track{animation-direction:reverse}
 @keyframes slide{to{transform:translateX(-50%)}}
