@@ -1,4 +1,4 @@
-# AFIADO Barber Club
+# Mestre Barber Club
 
 Site de barbearia em HTML/CSS/JS puro, tema preto e dourado.
 
