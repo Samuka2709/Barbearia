@@ -9,7 +9,7 @@ Medido com Lighthouse 12, perfil mobile (4G simulado), servidor local. Mesma pá
 | Granulado SVG com blend → bitmap 8 KB sem blend; sem blur no feixe; blur do menu só no desktop | renderização mais leve (não medível no Lighthouse) | mantida |
 | Fontes do Google → próprias (latin, variáveis) + preload | FCP 2,6–3,0 s → 1,4 s; nota 86–92 → 97 | mantida |
 | Fotos com versão de 400 px (srcset) para telas pequenas | peso 474 KB → 338 KB; nota 97 → 97 | mantida |
-| Mapa só carrega ao clicar; faixas pausam fora da tela; rolagem sem leituras repetidas | menos trabalho em segundo plano | mantida |
+| Faixas pausam fora da tela; rolagem sem leituras repetidas | menos trabalho em segundo plano | mantida |
 
 Resultado final: nota 97, LCP 2,5 s, FCP 1,4 s, TBT 0 ms, CLS 0,004, peso 338 KB.
 
