@@ -46,7 +46,7 @@ nav .links{display:flex;gap:3.5vw;font-size:11px;align-items:center}
 nav .links a:not(.btn){color:#c4b9a8;transition:color .3s}nav .links a:not(.btn):hover{color:var(--gold-hi)}
 nav .right{justify-content:flex-end}
 nav .links{gap:clamp(16px,2.2vw,36px)}nav .ig{display:grid;place-items:center}
-@media(min-width:821px) and (max-width:1180px){nav .right .d-only:first-of-type{display:none}}
+@media(min-width:821px) and (max-width:1360px){nav .right .d-only:first-of-type,nav .links:not(.right) a[href="#equipe"]{display:none}}
 .logo{display:flex;align-items:center;gap:10px;font-family:Unbounded;font-weight:800;font-size:13px;line-height:.95;letter-spacing:.04em;color:var(--gold)}
 .logo span{border-right:2px solid var(--gold);padding-right:4px}
 .logo-mark{display:block}
@@ -237,7 +237,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 <body>
 
 <nav id="nav">
-  <div class="links wide" id="menu"><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a><a href="#localizacao">Localização</a><a href="#depoimentos" class="m-only">Depoimentos</a><a href="#produtos" class="m-only">Produtos</a><a href="#contato" class="m-only">Contato</a></div>
+  <div class="links wide" id="menu"><a href="#historia">História</a><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a><a href="#localizacao">Localização</a><a href="#depoimentos" class="m-only">Depoimentos</a><a href="#produtos" class="m-only">Produtos</a><a href="#contato" class="m-only">Contato</a></div>
   <a href="#" class="logo" aria-label="Mestre Barber Club, início"><img src="favicon.svg" alt="" width="34" height="34" class="logo-mark"><span>MES<br>TRE</span></a>
   <div class="links right wide"><button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span></button><a href="#depoimentos" class="d-only">Depoimentos</a><a href="#produtos" class="d-only">Produtos</a><a href="#contato" class="d-only">Contato</a><a href="https://instagram.com/" class="ig" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="#agendar" class="btn">Agendar</a></div>
 </nav>
@@ -263,7 +263,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
   <span>Corte<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Barba<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Navalha<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Toalha quente<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
 </div></div>
 
-<section class="photo-bg" style="--img:image-set(url(img/fotos/bg-manifesto2-1600.webp) 1x,url(img/fotos/bg-manifesto2-2400.webp) 2x)">
+<section class="photo-bg" id="historia" style="--img:image-set(url(img/fotos/bg-manifesto2-1600.webp) 1x,url(img/fotos/bg-manifesto2-2400.webp) 2x)">
   <div class="manifesto">
     <h2 class="reveal" style="margin:0">Aqui o corte<br><em>leva o tempo</em><br>que precisa.</h2>
     <div class="reveal">
