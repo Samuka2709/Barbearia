@@ -55,7 +55,7 @@ nav .right{justify-content:flex-end}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:640px;display:grid;place-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;z-index:0;filter:saturate(.75) brightness(.5)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:0;filter:saturate(.75) brightness(.5)}
 .hero-shade{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 45% 60% at 50% 50%,rgba(7,6,5,.55),transparent 75%),linear-gradient(180deg,rgba(7,6,5,.55),rgba(7,6,5,.2) 40%,rgba(7,6,5,.35) 70%,#070605)}
 .beam{position:absolute;top:-5%;left:50%;width:min(640px,92vw);height:95%;transform:translateX(-50%);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(255,214,150,.02),rgba(255,200,120,.12) 70%,rgba(255,210,140,.2));animation:flicker 7s infinite}
 .floor{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:min(720px,95vw);height:130px;background:radial-gradient(ellipse at center,rgba(255,200,120,.28),transparent 65%)}
@@ -70,7 +70,9 @@ nav .right{justify-content:flex-end}
 @keyframes flicker{0%,46%,49%,100%{opacity:1}47%{opacity:.65}}
 
 /* SECTIONS */
-section{padding:140px 6vw 120px;border-top:1px solid var(--line)}
+section{padding:140px 6vw 120px;border-top:1px solid var(--line);position:relative;isolation:isolate;background:radial-gradient(60% 50% at 0% 0%,rgba(201,164,92,.07),transparent 70%),radial-gradient(50% 45% at 100% 100%,rgba(201,164,92,.05),transparent 70%)}
+main>section:nth-of-type(even){background-color:#0e0b08}
+.photo-bg::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#070605 0%,rgba(7,6,5,.78) 22%,rgba(7,6,5,.78) 78%,#070605 100%),var(--img) center/cover no-repeat;filter:saturate(.7)}
 h2{font-family:Unbounded;font-weight:600;font-size:clamp(30px,5vw,64px);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:56px;text-wrap:balance}
 h2 em{font-style:normal;color:var(--gold)}
 
@@ -240,7 +242,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 
 <header class="hero">
   <h1 class="sr">Mestre Barber Club, barbearia</h1>
-  <img class="hero-bg" src="img/fotos/1622286342621-4bd786c2447c-1400.webp" srcset="img/fotos/1622286342621-4bd786c2447c-1400-w400.webp 400w, img/fotos/1622286342621-4bd786c2447c-1400.webp 1400w" sizes="100vw" width="1400" height="933" alt="" decoding="async">
+  <img class="hero-bg" src="img/fotos/hero-1600.webp" srcset="img/fotos/hero-800.webp 800w, img/fotos/hero-1600.webp 1600w" sizes="100vw" width="1600" height="1064" alt="" decoding="async">
   <div class="hero-shade"></div>
   <div class="ghost-word" aria-hidden="true">MESTRE<span>BARBER</span></div>
   <div class="beam"></div>
@@ -259,7 +261,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
   <span>Corte<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Barba<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Navalha<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Toalha quente<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
 </div></div>
 
-<section>
+<section class="photo-bg" style="--img:image-set(url(img/fotos/bg-manifesto-800.webp) 1x,url(img/fotos/bg-manifesto-1600.webp) 2x)">
   <div class="manifesto">
     <h2 class="reveal" style="margin:0">Aqui o corte<br><em>leva o tempo</em><br>que precisa.</h2>
     <div class="reveal">
@@ -351,7 +353,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
   </div>
 </section>
 
-<section class="cta" id="agendar">
+<section class="cta photo-bg" id="agendar" style="--img:image-set(url(img/fotos/bg-agendar-800.webp) 1x,url(img/fotos/bg-agendar-1600.webp) 2x)">
   <h2 class="reveal">Sua<br><em>cadeira</em><br>te espera</h2>
   <form class="book reveal" id="book">
     <label>Nome<input name="nome" required autocomplete="name" placeholder="Seu nome"></label>
