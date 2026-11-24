@@ -83,8 +83,26 @@ h2 em{font-style:normal;color:var(--gold)}
 .manifesto p{color:#c2b6a4;line-height:1.8;font-size:17px;max-width:62ch}
 .manifesto .sign{font-size:44px;color:var(--gold);margin-top:28px;line-height:1}
 
-.svc{display:grid;grid-template-columns:1fr auto auto;gap:30px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);transition:padding .5s cubic-bezier(.2,.7,.2,1),background .5s}
-@media(hover:hover){.svc:hover{padding-left:20px;background:linear-gradient(90deg,rgba(201,164,92,.06),transparent)}}
+.svc-wrap{display:grid;grid-template-columns:minmax(300px,5fr) 7fr;gap:clamp(40px,6vw,104px);align-items:start}
+.svc-side{position:sticky;top:110px}
+.svc-side h2{margin-bottom:22px}
+.svc-lead{color:var(--mute);max-width:34ch;line-height:1.7;font-size:15px;margin-bottom:34px}
+.svc-fig{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+.svc-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 1.4s cubic-bezier(.2,.7,.2,1);filter:sepia(.15) saturate(.9)}
+.svc-fig img.on{opacity:1;transform:none}
+.svc-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(7,6,5,.9));pointer-events:none}
+.svc-fig figcaption{position:absolute;left:24px;right:24px;bottom:22px;z-index:1;display:flex;gap:14px;align-items:baseline;font-family:Unbounded;text-transform:uppercase}
+.svc-fig .n{color:var(--gold);font-size:13px}.svc-fig .name{font-size:clamp(18px,1.8vw,24px)}
+.svc-list{border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:40px auto 1fr auto auto;gap:22px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;transition:padding .5s cubic-bezier(.2,.7,.2,1),background .5s}
+.svc .num{font-family:Unbounded;font-size:12px;color:var(--gold);letter-spacing:.05em}
+.svc .dots{height:1px;min-width:24px;background:repeating-linear-gradient(90deg,#4a3d2a 0 3px,transparent 3px 8px);transition:background .4s}
+.svc h3{transition:color .4s}
+.svc.on{padding-left:14px;background:linear-gradient(90deg,rgba(201,164,92,.07),transparent 70%)}
+.svc.on h3{color:var(--gold-hi)}.svc.on .dots{background:repeating-linear-gradient(90deg,var(--gold) 0 3px,transparent 3px 8px)}
+.svc:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.svc .tag{display:inline-block;vertical-align:middle;margin-left:12px;padding:5px 9px;border:1px solid rgba(201,164,92,.5);border-radius:99px;font:500 9px/1 Inter,sans-serif;letter-spacing:.14em;color:var(--gold);font-style:normal}
+.svc-cta{margin-top:40px}
 .svc h3{font-family:Unbounded;font-weight:400;font-size:clamp(18px,2.4vw,28px);text-transform:uppercase}
 .svc small{display:block;color:var(--mute);font-family:Inter;font-size:14px;text-transform:none;margin-top:6px}
 .svc .t{color:var(--mute);font-size:13px}
@@ -217,7 +235,8 @@ body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;op
  .manifesto,.info{grid-template-columns:1fr}
  .grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
  .team{grid-template-columns:1fr}
- .svc{grid-template-columns:1fr auto;gap:8px}.svc .t{display:none}
+ .svc-wrap{grid-template-columns:1fr;gap:28px}.svc-side{position:static}.svc-fig{aspect-ratio:4/3}
+ .svc{grid-template-columns:28px 1fr auto;gap:12px;padding:22px 0}.svc .t,.svc .dots{display:none}.svc.on{padding-left:8px}.svc .tag{margin:8px 0 0;display:table}.svc-cta{display:block;text-align:center}
  .hero-script{bottom:24%}.razor{height:52vh}
  .hero-foot{flex-direction:column;align-items:start;gap:16px}
 }
@@ -275,13 +294,30 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 </section>
 
 <section id="servicos">
-  <h2 class="reveal">Menu do <em>clube</em></h2>
-  <div class="svc reveal"><h3>Corte<small>Tesoura e máquina, lavagem e finalização</small></h3><span class="t">45 min</span><span class="p">R$ 60</span></div>
-  <div class="svc reveal"><h3>Barba<small>Toalha quente, navalha e óleo</small></h3><span class="t">30 min</span><span class="p">R$ 45</span></div>
-  <div class="svc reveal"><h3>Corte + Barba<small>O combo completo</small></h3><span class="t">75 min</span><span class="p">R$ 95</span></div>
-  <div class="svc reveal"><h3>Pigmentação<small>Correção de falhas na barba ou cabelo</small></h3><span class="t">20 min</span><span class="p">R$ 35</span></div>
-  <div class="svc reveal"><h3>Sobrancelha<small>Na navalha ou pinça</small></h3><span class="t">15 min</span><span class="p">R$ 20</span></div>
-  <div class="svc reveal"><h3>Corte Kids<small>Para os pequenos clientes, com paciência</small></h3><span class="t">30 min</span><span class="p">R$ 45</span></div>
+  <div class="svc-wrap">
+    <aside class="svc-side">
+      <h2 class="reveal">Menu do <em>clube</em></h2>
+      <p class="svc-lead">Seis serviços, todos com hora marcada e sem pressa. Toque em um e ele já vai escolhido para o agendamento.</p>
+      <figure class="svc-fig">
+      <img class="sw on" data-k="corte" src="img/fotos/svc-corte-960.webp" srcset="img/fotos/svc-corte-480.webp 480w, img/fotos/svc-corte-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barbeiro finalizando corte com tesoura" loading="lazy" decoding="async">
+      <img class="sw" data-k="barba" src="img/fotos/svc-barba-960.webp" srcset="img/fotos/svc-barba-480.webp 480w, img/fotos/svc-barba-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barba sendo feita na navalha" loading="lazy" decoding="async">
+      <img class="sw" data-k="combo" src="img/fotos/svc-combo-960.webp" srcset="img/fotos/svc-combo-480.webp 480w, img/fotos/svc-combo-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barbeiro atendendo cliente na cadeira" loading="lazy" decoding="async">
+      <img class="sw" data-k="pigmentacao" src="img/fotos/svc-pigmentacao-960.webp" srcset="img/fotos/svc-pigmentacao-480.webp 480w, img/fotos/svc-pigmentacao-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Acabamento com máquina na nuca" loading="lazy" decoding="async">
+      <img class="sw" data-k="sobrancelha" src="img/fotos/svc-sobrancelha-960.webp" srcset="img/fotos/svc-sobrancelha-480.webp 480w, img/fotos/svc-sobrancelha-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Acabamento de navalha no contorno" loading="lazy" decoding="async">
+      <img class="sw" data-k="kids" src="img/fotos/svc-kids-960.webp" srcset="img/fotos/svc-kids-480.webp 480w, img/fotos/svc-kids-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Cadeira de barbeiro pronta para o atendimento" loading="lazy" decoding="async">
+        <figcaption><span class="n">01</span><span class="name">Corte</span></figcaption>
+      </figure>
+    </aside>
+    <div class="svc-list">
+    <a class="svc reveal on" href="#agendar" data-k="corte" data-svc="Corte"><span class="num">01</span><h3>Corte<small>Tesoura e máquina, lavagem e finalização</small></h3><span class="dots" aria-hidden="true"></span><span class="t">45 min</span><span class="p">R$ 60</span></a>
+    <a class="svc reveal" href="#agendar" data-k="barba" data-svc="Barba"><span class="num">02</span><h3>Barba<small>Toalha quente, navalha e óleo</small></h3><span class="dots" aria-hidden="true"></span><span class="t">30 min</span><span class="p">R$ 45</span></a>
+    <a class="svc reveal" href="#agendar" data-k="combo" data-svc="Corte + Barba"><span class="num">03</span><h3>Corte + Barba<em class="tag">Favorito da casa</em><small>O combo completo</small></h3><span class="dots" aria-hidden="true"></span><span class="t">75 min</span><span class="p">R$ 95</span></a>
+    <a class="svc reveal" href="#agendar" data-k="pigmentacao" data-svc="Pigmentação"><span class="num">04</span><h3>Pigmentação<small>Correção de falhas na barba ou cabelo</small></h3><span class="dots" aria-hidden="true"></span><span class="t">20 min</span><span class="p">R$ 35</span></a>
+    <a class="svc reveal" href="#agendar" data-k="sobrancelha" data-svc="Sobrancelha"><span class="num">05</span><h3>Sobrancelha<small>Na navalha ou pinça</small></h3><span class="dots" aria-hidden="true"></span><span class="t">15 min</span><span class="p">R$ 20</span></a>
+    <a class="svc reveal" href="#agendar" data-k="kids" data-svc="Corte Kids"><span class="num">06</span><h3>Corte Kids<small>Para os pequenos clientes, com paciência</small></h3><span class="dots" aria-hidden="true"></span><span class="t">30 min</span><span class="p">R$ 45</span></a>
+      <a href="#agendar" class="btn svc-cta">Agendar horário</a>
+    </div>
+  </div>
 </section>
 
 <section id="galeria">
@@ -400,7 +436,7 @@ document.querySelectorAll('.marquee-track').forEach(t=>fillLoop(t,t.children.len
 document.querySelectorAll('.strip-track').forEach(t=>fillLoop(t,t.children.length,65));
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
-document.querySelectorAll('img:not(.razor)').forEach(i=>{
+document.querySelectorAll('img:not(.razor):not(.sw)').forEach(i=>{
   i.classList.add('fade');
   const show=()=>i.classList.add('loaded');
   if(i.complete&&i.naturalWidth)requestAnimationFrame(show);
@@ -479,6 +515,11 @@ f.addEventListener('submit',e=>{
   const url=`https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`,w=window.open(url,'_blank');
   if(w){w.opener=null;err.className='book-err ok';err.textContent='Abrimos o WhatsApp com sua mensagem. É só enviar.';err.hidden=false}else location.href=url;
 });
+
+(()=>{const rows=[...document.querySelectorAll('.svc')],imgs=[...document.querySelectorAll('.svc-fig img')],n=document.querySelector('.svc-fig .n'),nm=document.querySelector('.svc-fig .name');
+const pick=r=>{rows.forEach(x=>x.classList.toggle('on',x===r));imgs.forEach(i=>i.classList.toggle('on',i.dataset.k===r.dataset.k));n.textContent=r.querySelector('.num').textContent;nm.textContent=r.dataset.svc};
+rows.forEach(r=>{r.addEventListener('mouseenter',()=>pick(r));r.addEventListener('focus',()=>pick(r));r.addEventListener('click',()=>{pick(r);const sel=document.querySelector('select[name=servico]');if(sel)sel.value=r.dataset.svc})});
+const warm=()=>imgs.forEach(i=>i.loading='eager');const sec=document.getElementById('servicos');if('IntersectionObserver'in window){const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){warm();o.disconnect()}},{rootMargin:'400px'});o.observe(sec)}else warm()})();
 </script>
 </body>
 </html>
