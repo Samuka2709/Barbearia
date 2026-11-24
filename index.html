@@ -55,7 +55,7 @@ nav .right{justify-content:flex-end}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:640px;display:grid;place-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:0;filter:saturate(.75) brightness(.5)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:0;filter:saturate(.85) brightness(.6)}
 .hero-shade{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 45% 60% at 50% 50%,rgba(7,6,5,.55),transparent 75%),linear-gradient(180deg,rgba(7,6,5,.55),rgba(7,6,5,.2) 40%,rgba(7,6,5,.35) 70%,#070605)}
 .beam{position:absolute;top:-5%;left:50%;width:min(640px,92vw);height:95%;transform:translateX(-50%);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(255,214,150,.02),rgba(255,200,120,.12) 70%,rgba(255,210,140,.2));animation:flicker 7s infinite}
 .floor{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:min(720px,95vw);height:130px;background:radial-gradient(ellipse at center,rgba(255,200,120,.28),transparent 65%)}
@@ -242,7 +242,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
 
 <header class="hero">
   <h1 class="sr">Mestre Barber Club, barbearia</h1>
-  <img class="hero-bg" src="img/fotos/hero-1600.webp" srcset="img/fotos/hero-800.webp 800w, img/fotos/hero-1600.webp 1600w" sizes="100vw" width="1600" height="1064" alt="" decoding="async">
+  <img class="hero-bg" src="img/fotos/hero-1600.webp" srcset="img/fotos/hero-800.webp 800w, img/fotos/hero-1600.webp 1600w, img/fotos/hero-2400.webp 2400w" sizes="100vw" width="1600" height="1064" alt="" decoding="async">
   <div class="hero-shade"></div>
   <div class="ghost-word" aria-hidden="true">MESTRE<span>BARBER</span></div>
   <div class="beam"></div>
@@ -261,7 +261,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
   <span>Corte<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Barba<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Navalha<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span><span>Toalha quente<svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
 </div></div>
 
-<section class="photo-bg" style="--img:image-set(url(img/fotos/bg-manifesto-800.webp) 1x,url(img/fotos/bg-manifesto-1600.webp) 2x)">
+<section class="photo-bg" style="--img:image-set(url(img/fotos/bg-manifesto-1600.webp) 1x,url(img/fotos/bg-manifesto-2400.webp) 2x)">
   <div class="manifesto">
     <h2 class="reveal" style="margin:0">Aqui o corte<br><em>leva o tempo</em><br>que precisa.</h2>
     <div class="reveal">
@@ -353,7 +353,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
   </div>
 </section>
 
-<section class="cta photo-bg" id="agendar" style="--img:image-set(url(img/fotos/bg-agendar-800.webp) 1x,url(img/fotos/bg-agendar-1600.webp) 2x)">
+<section class="cta photo-bg" id="agendar" style="--img:image-set(url(img/fotos/bg-agendar-1600.webp) 1x,url(img/fotos/bg-agendar-2400.webp) 2x)">
   <h2 class="reveal">Sua<br><em>cadeira</em><br>te espera</h2>
   <form class="book reveal" id="book">
     <label>Nome<input name="nome" required autocomplete="name" placeholder="Seu nome"></label>
