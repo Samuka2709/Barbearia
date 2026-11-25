@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#070605">
+<title>Painel | Mestre Barber Club</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:Unbounded;font-weight:200 900;font-display:swap;src:url(../fonts/unbounded.woff2) format('woff2')}
+@font-face{font-family:Inter;font-weight:100 900;font-display:swap;src:url(../fonts/inter.woff2) format('woff2')}
+:root{--bg:#070605;--card:#100d0a;--fg:#f3ece0;--mute:#9a8e7e;--line:#221d17;--gold:#c9a45c;--gold-hi:#e6c88a;--red:#e8a07a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:300 15px/1.5 Inter,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+.btn{background:var(--gold);color:#120e09;border:0;border-radius:99px;padding:13px 22px;font:500 12px Unbounded;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;min-height:44px}
+.btn:hover{background:var(--gold-hi)}
+.ghost{background:transparent;color:var(--fg);border:1px solid #3a2f20}
+.ghost:hover{background:transparent;border-color:var(--gold)}
+.mini{padding:8px 12px;min-height:36px;font-size:10px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(20px,env(safe-area-inset-left));border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,6,5,.94);backdrop-filter:blur(8px);z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font:600 12px Unbounded;letter-spacing:.06em;text-transform:uppercase}
+.brand img{width:30px;height:30px}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+#login{max-width:380px;margin:12vh auto 0;padding:36px 30px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+#login h1{font:600 22px Unbounded;text-transform:uppercase;margin-bottom:6px}
+#login p{color:var(--mute);margin-bottom:22px}
+label{display:flex;flex-direction:column;gap:8px;font:500 10px Unbounded;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+input{background:#0f0c09;border:1px solid #3a2f20;border-radius:8px;padding:13px 14px;font-size:16px;min-height:48px;color-scheme:dark;letter-spacing:normal;text-transform:none}
+input:focus{outline:none;border-color:var(--gold)}
+#login .btn{width:100%;margin-top:18px}
+.msg{color:var(--red);font-size:14px;margin-top:12px;min-height:20px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px}
+.bar h2{font:600 clamp(18px,2.6vw,26px) Unbounded;text-transform:uppercase;margin-right:auto}
+.bar h2 small{display:block;font:400 13px Inter;color:var(--mute);text-transform:none;margin-top:4px}
+.nav{display:flex;gap:8px;align-items:center}
+.nav input{min-height:40px;padding:8px 10px;font-size:14px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card);min-width:130px}
+.stat b{display:block;font:600 22px Unbounded;color:var(--gold-hi)}
+.stat span{font-size:12px;color:var(--mute)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.col{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+.col h3{font:600 13px Unbounded;text-transform:uppercase;letter-spacing:.06em;padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.col h3 span{color:var(--mute);font:400 12px Inter;text-transform:none;letter-spacing:0}
+.row{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid #18140f;min-height:52px}
+.row:last-child{border-bottom:0}
+.row .t{font:500 13px Unbounded;color:var(--mute);font-variant-numeric:tabular-nums}
+.row.livre .info{color:#5d5446;font-size:13px}
+.row.ocup{background:linear-gradient(90deg,rgba(201,164,92,.10),transparent)}
+.row.ocup .t{color:var(--gold-hi)}
+.row.cont{min-height:30px;padding-top:4px;padding-bottom:4px}
+.row.cont .info{color:#6d6252;font-size:12px}
+.row.bloq .info{color:var(--red);font-size:13px}
+.info strong{display:block;font-weight:500;color:var(--fg)}
+.info small{color:var(--mute);font-size:13px}
+.info a{color:var(--gold-hi);text-decoration:none}
+.info a:hover{text-decoration:underline}
+.acts{display:flex;gap:6px}
+.empty{color:var(--mute);padding:40px 0;text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1a150f;border:1px solid var(--gold);padding:12px 18px;border-radius:99px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+[hidden]{display:none!important}
+@media(max-width:640px){.bar{flex-direction:column;align-items:stretch}.nav{justify-content:space-between}.row{grid-template-columns:48px 1fr auto;padding:10px 12px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><img src="../favicon.svg" alt="">Painel do barbeiro</div><button class="btn ghost mini" id="sair" hidden>Sair</button></header>
+<main>
+  <form id="login" hidden>
+    <h1>Entrar</h1>
+    <p>Agenda da Mestre Barber Club.</p>
+    <label>Senha<input type="password" name="senha" autocomplete="current-password" required></label>
+    <button class="btn" type="submit">Entrar</button>
+    <p class="msg" role="alert"></p>
+  </form>
+  <section id="app" hidden>
+    <div class="bar">
+      <h2 id="titulo">Agenda<small></small></h2>
+      <div class="nav">
+        <button class="btn ghost mini" id="prev" aria-label="Dia anterior">←</button>
+        <input type="date" id="dia" aria-label="Escolher dia">
+        <button class="btn ghost mini" id="hoje">Hoje</button>
+        <button class="btn ghost mini" id="next" aria-label="Próximo dia">→</button>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="cols" id="cols"></div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const store={get(){try{return sessionStorage.getItem('mbc_t')}catch(e){return null}},set(v){try{v?sessionStorage.setItem('mbc_t',v):sessionStorage.removeItem('mbc_t')}catch(e){}}};
+let token=store.get();
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2600)}
+async function api(method,body,qs){
+  const r=await fetch('/api/admin'+(qs||''),{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined});
+  const j=await r.json().catch(()=>({}));
+  if(r.status===401&&body?.acao!=='login'){sair();throw new Error(j.error||'Entre de novo.')}
+  if(!r.ok)throw new Error(j.error||'Erro');
+  return j;
+}
+function sair(){token=null;store.set(null);$('#app').hidden=true;$('#sair').hidden=true;$('#login').hidden=false;$('#login input').focus()}
+function entrar(){$('#login').hidden=true;$('#app').hidden=false;$('#sair').hidden=false;if(!$('#dia').value)$('#dia').value=iso(new Date());carregar()}
+$('#login').addEventListener('submit',async e=>{
+  e.preventDefault();const m=$('#login .msg');m.textContent='';
+  try{const j=await api('POST',{acao:'login',senha:e.target.senha.value});token=j.token;store.set(token);e.target.reset();entrar()}
+  catch(err){m.textContent=err.message}
+});
+$('#sair').onclick=sair;
+const mudar=n=>{const d=new Date($('#dia').value+'T12:00');d.setDate(d.getDate()+n);$('#dia').value=iso(d);carregar()};
+$('#prev').onclick=()=>mudar(-1);$('#next').onclick=()=>mudar(1);
+$('#hoje').onclick=()=>{$('#dia').value=iso(new Date());carregar()};
+$('#dia').onchange=carregar;
+const fone=t=>{const d=t.length<=11?'55'+t:t;return{wa:'https://wa.me/'+d,txt:t.length===11?'('+t.slice(0,2)+') '+t.slice(2,7)+'-'+t.slice(7):t}};
+async function carregar(){
+  const dia=$('#dia').value;if(!dia)return;
+  let j;try{j=await api('GET',null,'?acao=agenda&dia='+dia)}catch(e){toast(e.message);return}
+  $('#titulo small').textContent=j.quando.charAt(0).toUpperCase()+j.quando.slice(1);
+  const ativos=j.agendamentos.filter(a=>a.status==='ativo');
+  const fat=ativos.reduce((s,a)=>s+({'Corte':60,'Barba':45,'Corte + Barba':95,'Pigmentação':35,'Sobrancelha':20,'Corte Kids':45}[a.servico]||0),0);
+  $('#stats').innerHTML=`<div class="stat"><b>${ativos.length}</b><span>agendamentos</span></div><div class="stat"><b>R$ ${fat}</b><span>previsto no dia</span></div><div class="stat"><b>${j.bloqueios.length}</b><span>horários bloqueados</span></div>`;
+  if(!j.horarios.length){$('#cols').innerHTML='<p class="empty">Fechado neste dia.</p>';return}
+  $('#cols').innerHTML=j.barbeiros.map(b=>{
+    const meus=ativos.filter(a=>a.barbeiro===b);const mapa={};
+    meus.forEach(a=>{const ini=j.horarios.indexOf(a.hora);for(let i=0;i<a.slots;i++)if(j.horarios[ini+i])mapa[j.horarios[ini+i]]=i===0?a:'cont'});
+    const bloq=new Set(j.bloqueios.filter(x=>x.barbeiro===b).map(x=>x.hora));
+    const rows=j.horarios.map(h=>{
+      const a=mapa[h];
+      if(a==='cont')return `<div class="row cont"><span class="t">${h}</span><span class="info">em atendimento</span><span></span></div>`;
+      if(a){const f=fone(a.telefone);return `<div class="row ocup"><span class="t">${h}</span><span class="info"><strong>${esc(a.nome)}</strong><small>${esc(a.servico)} · até ${a.fim} · <a href="${f.wa}" target="_blank" rel="noopener">${esc(f.txt)}</a></small></span><span class="acts"><button class="btn ghost mini" data-cancel="${a.id}" data-nome="${esc(a.nome)}">Cancelar</button></span></div>`}
+      if(bloq.has(h))return `<div class="row bloq"><span class="t">${h}</span><span class="info">Bloqueado</span><span class="acts"><button class="btn ghost mini" data-liberar="${h}" data-b="${esc(b)}">Liberar</button></span></div>`;
+      return `<div class="row livre"><span class="t">${h}</span><span class="info">Livre</span><span class="acts"><button class="btn ghost mini" data-bloquear="${h}" data-b="${esc(b)}">Bloquear</button></span></div>`;
+    }).join('');
+    return `<div class="col"><h3>${esc(b)}<span>${meus.length} cliente${meus.length===1?'':'s'}</span></h3>${rows}</div>`;
+  }).join('');
+}
+$('#cols').addEventListener('click',async e=>{
+  const t=e.target.closest('button');if(!t)return;const dia=$('#dia').value;
+  try{
+    if(t.dataset.cancel){if(!confirm('Cancelar o horário de '+t.dataset.nome+'? Avise o cliente pelo WhatsApp.'))return;await api('POST',{acao:'cancelar',id:t.dataset.cancel});toast('Agendamento cancelado')}
+    else if(t.dataset.bloquear){await api('POST',{acao:'bloquear',dia,barbeiro:t.dataset.b,hora:t.dataset.bloquear});toast('Horário bloqueado')}
+    else if(t.dataset.liberar){await api('POST',{acao:'liberar',dia,barbeiro:t.dataset.b,hora:t.dataset.liberar});toast('Horário liberado')}
+    carregar();
+  }catch(err){toast(err.message)}
+});
+setInterval(()=>{if(token&&!document.hidden)carregar()},60000);
+token?entrar():sair();
+</script>
+</body>
+</html>
