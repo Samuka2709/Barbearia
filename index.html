@@ -295,7 +295,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
       <h2 class="reveal">Menu do <em>clube</em></h2>
       <p class="svc-lead">Seis serviços, todos com hora marcada e sem pressa. Toque em um e ele já vai escolhido para o agendamento.</p>
       <figure class="svc-fig">
-      <img class="sw on" data-k="corte" src="img/fotos/svc-corte-960.webp" srcset="img/fotos/svc-corte-480.webp 480w, img/fotos/svc-corte-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barbeiro finalizando corte com tesoura" loading="lazy" decoding="async">
+      <img class="sw on" data-k="corte" src="img/fotos/svc-corte2-960.webp" srcset="img/fotos/svc-corte2-480.webp 480w, img/fotos/svc-corte2-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barbeiro finalizando corte com tesoura" loading="eager" decoding="async">
       <img class="sw" data-k="barba" src="img/fotos/svc-barba2-960.webp" srcset="img/fotos/svc-barba2-480.webp 480w, img/fotos/svc-barba2-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barba sendo feita na navalha" loading="lazy" decoding="async">
       <img class="sw" data-k="combo" src="img/fotos/svc-combo-960.webp" srcset="img/fotos/svc-combo-480.webp 480w, img/fotos/svc-combo-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Barbeiro atendendo cliente na cadeira" loading="lazy" decoding="async">
       <img class="sw" data-k="pigmentacao" src="img/fotos/svc-pigmentacao-960.webp" srcset="img/fotos/svc-pigmentacao-480.webp 480w, img/fotos/svc-pigmentacao-960.webp 960w" sizes="(max-width:820px) 90vw, 40vw" width="960" height="1200" alt="Acabamento com máquina na nuca" loading="lazy" decoding="async">
@@ -514,7 +514,7 @@ f.addEventListener('submit',e=>{
 (()=>{const rows=[...document.querySelectorAll('.svc')],imgs=[...document.querySelectorAll('.svc-fig img')],n=document.querySelector('.svc-fig .n'),nm=document.querySelector('.svc-fig .name');
 const pick=r=>{rows.forEach(x=>x.classList.toggle('on',x===r));imgs.forEach(i=>i.classList.toggle('on',i.dataset.k===r.dataset.k));n.textContent=r.querySelector('.num').textContent;nm.textContent=r.dataset.svc};
 rows.forEach(r=>{r.addEventListener('mouseenter',()=>pick(r));r.addEventListener('focus',()=>pick(r));r.addEventListener('click',()=>{pick(r);const sel=document.querySelector('select[name=servico]');if(sel)sel.value=r.dataset.svc})});
-const warm=()=>imgs.forEach(i=>i.loading='eager');const sec=document.getElementById('servicos');if('IntersectionObserver'in window){const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){warm();o.disconnect()}},{rootMargin:'400px'});o.observe(sec)}else warm()})();
+const warm=()=>imgs.forEach(i=>{i.loading='eager';i.addEventListener('error',()=>{if(!i.dataset.r){i.dataset.r=1;const u=i.currentSrc||i.src;i.srcset='';i.src=u.split('?')[0]+'?r='+Date.now()}},{once:true})});let warmed=0;const go=()=>{if(!warmed){warmed=1;warm()}};rows.forEach(r=>r.addEventListener('pointerenter',go,{once:true}));if(document.readyState==='complete')setTimeout(go,800);else addEventListener('load',()=>setTimeout(go,800))})();
 </script>
 </body>
 </html>
