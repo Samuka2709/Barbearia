@@ -408,7 +408,7 @@ section{padding-inline:max(6vw,calc((100vw - 1320px) / 2))}
     <label>Barbeiro<select name="barbeiro"><option>Sem preferência</option><option>Barbeiro 1</option><option>Barbeiro 2</option><option>Barbeiro 3</option></select></label>
     <label>Dia<input type="date" name="dia" required></label>
     <label>Horário<select name="hora" required></select></label>
-    <button class="btn" type="submit">Confirmar agendamento</button>
+    <button class="btn" type="submit">Agendar no WhatsApp</button>
     <p class="book-err" role="alert" hidden></p>
   </form>
   <div class="book-ok" id="book-ok" hidden tabindex="-1"><p class="k">Horário reservado</p><h3></h3><p class="d"></p><p class="m">A barbearia já recebeu seu agendamento. Se precisar mudar, <a id="book-wa" href="#">fale com a gente no WhatsApp</a>.</p><button type="button" class="btn ghost" id="book-new">Fazer outro agendamento</button></div>
@@ -500,6 +500,7 @@ const f=document.getElementById('book'),dia=f.dia,hora=f.hora,err=f.querySelecto
 const okBox=document.getElementById('book-ok');
 const pad=n=>String(n).padStart(2,'0'),hoje=new Date();
 dia.min=`${hoje.getFullYear()}-${pad(hoje.getMonth()+1)}-${pad(hoje.getDate())}`;
+const AGENDA_ONLINE=false; // true liga o agendamento online (ver README)
 let modo='api',seq=0;
 const say=(t,ok)=>{err.textContent=t;err.className='book-err'+(ok?' ok':'');err.hidden=!t};
 const opts=(list,vazio)=>{hora.innerHTML='';if(!list.length){hora.add(new Option(vazio,''));return}hora.add(new Option('Escolha o horário',''));list.forEach(h=>hora.add(new Option(h)))};
@@ -520,6 +521,7 @@ async function slots(){
   }
   const l=locais();opts(l||[],l?'Sem horários: escolha outro dia':'Fechado aos domingos');
 }
+if(!AGENDA_ONLINE)modoWhats();
 [dia,f.servico,f.barbeiro].forEach(el=>el.addEventListener('change',slots));slots();
 f.addEventListener('submit',async e=>{
   e.preventDefault();say('');

@@ -8,6 +8,8 @@ Site de barbearia em HTML/CSS/JS puro, tema preto e dourado.
 
 ## Agendamento online
 
+**Status: desativado.** Para ligar, troque `const AGENDA_ONLINE=false` para `true` em `index.html` e siga os passos abaixo.
+
 O formulário do site reserva horários de verdade (`/api/slots`, `/api/book`) e o barbeiro vê a agenda em **/painel**.
 Enquanto o banco não estiver configurado, o formulário volta sozinho para o modo antigo (mensagem no WhatsApp).
 
