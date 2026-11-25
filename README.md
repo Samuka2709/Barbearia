@@ -16,7 +16,8 @@ Enquanto o banco não estiver configurado, o formulário volta sozinho para o mo
    Isso cria as variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN` (ou `UPSTASH_REDIS_REST_URL`/`_TOKEN`).
 2. **Senha do painel:** *Settings → Environment Variables* → `ADMIN_PASSWORD` = uma senha forte.
 3. **Aviso no WhatsApp (CallMeBot, gratuito):**
-   - No celular que vai receber os avisos, adicione o contato **+34 644 51 95 23** e mande: `I allow callmebot to send me messages`.
+   - Abra https://www.callmebot.com/blog/free-api-whatsapp-messages/ e veja o número atual do CallMeBot (ele muda de tempos em tempos).
+   - No celular que vai receber os avisos, salve esse contato e mande: `I allow callmebot to send me messages`.
    - Você recebe uma *apikey* por mensagem.
    - Crie a variável `CALLMEBOT` = `5511999999999:APIKEY` (número com DDI e DDD, dois-pontos, apikey). Para avisar mais de um número, separe por vírgula.
 4. Faça um novo deploy (*Deployments → Redeploy*).
